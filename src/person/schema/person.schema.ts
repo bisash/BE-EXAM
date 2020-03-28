@@ -13,6 +13,7 @@ export const PersonSchema = new Schema({
   },
   phone: {
     type: String,
+    maxlength: 10,
   },
   specialty: {
     type: String,
