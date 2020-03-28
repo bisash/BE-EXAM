@@ -6,6 +6,7 @@ export const PersonSchema = new Schema({
   },
   type: {
     type: String,
+    enum: ['Vet', 'Client'],
   },
   lastName: {
     type: String,
