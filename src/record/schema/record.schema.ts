@@ -1,7 +1,7 @@
 import { Schema, Types } from 'mongoose';
 
 export const RecordSchema = new Schema({
-  type: { type: String },
+  type: { type: String, enum: ['Vaccine', 'Schedule'] },
   client: {
     type: Types.ObjectId,
     ref: 'Person',
