@@ -9,9 +9,11 @@ import {
   Delete,
   Param,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { createRecordDTO } from './dto/record.dto';
 import { RecordService } from './record.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/record')
 export class RecordController {
@@ -35,6 +37,7 @@ export class RecordController {
   }
 
   @Get('/all')
+  @UseGuards(AuthGuard('jwt'))
   async getRecords(@Res() res, @Body() body: createRecordDTO) {
     const rs = await this.service.getAll();
     return res.status(HttpStatus.OK).json(rs);
