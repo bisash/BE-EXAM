@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  UseGuards,
-  Req,
-  Res,
-  NotFoundException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/auth')
@@ -19,8 +11,8 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   googleLoginCallback(@Req() req, @Res() res) {
     const jwt: string = req.user.jwt;
-    if (!jwt) throw new NotFoundException('Record not found');
-    return res.status(HttpStatus.OK).json({ token: jwt });
+    if (jwt) res.redirect('http://localhost:4200/login/succes/' + jwt);
+    else res.redirect('http://localhost:4200/login/failure');
   }
 
   @Get('protected')
