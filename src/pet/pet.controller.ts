@@ -9,9 +9,11 @@ import {
   Delete,
   Param,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { createPetDTO } from './dto/pet.dto';
 import { PetService } from './pet.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/pet')
 export class PetController {
@@ -31,6 +33,7 @@ export class PetController {
   }
 
   @Get('/all')
+  @UseGuards(AuthGuard('jwt'))
   async getPets(@Res() res, @Body() body: createPetDTO) {
     const rs = await this.service.getAll();
     return res.status(HttpStatus.OK).json(rs);

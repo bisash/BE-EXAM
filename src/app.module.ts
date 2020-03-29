@@ -5,6 +5,7 @@ import { RecordModule } from './record/record.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AppService } from './app.service';
     MongooseModule.forRoot('mongodb://localhost/veterinary', {
       userNewUrlParser: true,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

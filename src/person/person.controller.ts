@@ -9,9 +9,11 @@ import {
   Delete,
   Param,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { createPersonDTO } from './dto/person.dto';
 import { PersonService } from './person.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/person')
 export class PersonController {
@@ -35,6 +37,7 @@ export class PersonController {
   }
 
   @Get('/all')
+  @UseGuards(AuthGuard('jwt'))
   async getPersons(@Res() res, @Body() body: createPersonDTO) {
     const rs = await this.service.getAll();
     return res.status(HttpStatus.OK).json(rs);
